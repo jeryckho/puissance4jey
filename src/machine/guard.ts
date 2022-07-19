@@ -1,5 +1,5 @@
 import { freePositionY, winingPositions, currentPlayer, countEmptyCells } from "../func/games";
-import { GameContext, GameEvent, GameGuard, PlayerColor } from "../types";
+import { GameGuard, PlayerColor } from "../types";
 
 export const canJoinGuard: GameGuard<"join"> = (context, event) => {
     return context.players.length < 2 && context.players.find(p => p.id === event.playerId) === undefined;

@@ -1,7 +1,7 @@
-import { createMachine, interpret, InterpreterFrom } from "xstate";
+import { interpret, InterpreterFrom } from "xstate";
 import { createModel } from "xstate/lib/model"
 import { GameStates, GameContext, GridState, Player, PlayerColor, Position } from "../types";
-import { chooseColorAction, dropTokenAction, joinGameAction, leaveGameAction, saveWiningAction, setCurrentPlayerAction, switchPlayerAction } from "./actions";
+import { chooseColorAction, dropTokenAction, joinGameAction, leaveGameAction, restartAction, saveWiningAction, setCurrentPlayerAction, switchPlayerAction } from "./actions";
 import { canChooseColorGuard, canDropTokenGuard, canJoinGuard, canLeaveGuard, canStartGuard, isDrawMoveGuard, isWiningMoveGuard } from "./guard";
 
 export const GameModel = createModel({
@@ -85,7 +85,7 @@ export const GameMachine = GameModel.createMachine({
             on: {
                 restart: {
                     target: GameStates.LOBBY,
-                    actions: [GameModel.assign(setCurrentPlayerAction)]
+                    actions: [GameModel.assign(restartAction), GameModel.assign(setCurrentPlayerAction)]
                 }
             }
         },
@@ -93,7 +93,7 @@ export const GameMachine = GameModel.createMachine({
             on: {
                 restart: {
                     target: GameStates.LOBBY,
-                    actions: [GameModel.assign(setCurrentPlayerAction)]
+                    actions: [GameModel.assign(restartAction), GameModel.assign(setCurrentPlayerAction)]
                 }
             }
         }

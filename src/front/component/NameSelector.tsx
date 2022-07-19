@@ -22,7 +22,7 @@ export function NameSelector({ onSelect, disabled }: NameSelectorProps) {
             {error}
             <button onClick={() => setError('')} className="alert_close">&times;</button>
         </div>}
-        <form className="flex" style={{gap: '.5rem'}} action="" onSubmit={handleSubmit}>
+        <form className="flex" style={{ gap: '.5rem' }} action="" onSubmit={handleSubmit}>
             <label htmlFor="name">Votre pseudo</label>
             <input disabled={disabled} type="text" name="name" id="name" required />
             <button className="button" disabled={disabled}>Choisir</button>

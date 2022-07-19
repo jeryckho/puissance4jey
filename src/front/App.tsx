@@ -1,31 +1,31 @@
-import { PlayerColor } from "../types"
-import { ColorSelector } from "./component/ColorSelector"
-import { Grid } from "./component/Grid"
-import { NameSelector } from "./component/NameSelector"
-import { GameInfo } from "./component/GameInfo"
-import { Victory } from "./component/Victory"
+import { currentPlayer } from "../func/games";
+import { GameStates } from "../types"
+import { Grid } from "./component/Grid";
+
+import { useGame } from "./hooks/useGame"
+import { DrawScreen } from "./screen/DrawScreen";
+import { LobbyScreen } from "./screen/LobbyScreen"
+import { PlayScreen } from "./screen/PlayScreen";
+import { VictoryScreen } from "./screen/VictoryScreen";
 
 function App() {
 
+  const { state, context, send } = useGame();
+  const canDrop = state === GameStates.PLAY;
+  const player = canDrop
+    ? currentPlayer(context)
+    : undefined;
+  const dropToken = canDrop
+    ? (x: number) => { send({ type: 'dropToken', x: x }) }
+    : undefined;
+
   return (
     <div className="container">
-      <NameSelector onSelect={() => null} />
-      <hr />
-      <ColorSelector onSelect={() => null} players={[
-        { id: '1', name: 'Bob', color: PlayerColor.RED },
-        { id: '2', name: 'Bill', color: PlayerColor.YELLOW }
-      ]} colors={[PlayerColor.YELLOW, PlayerColor.RED]} />
-      <hr />
-      <GameInfo name="Bob" color={PlayerColor.RED} />
-      <Victory name="Bob" color={PlayerColor.RED}/>
-      <Grid color={PlayerColor.RED} onDrop={() => null} grid={[
-        ["E", "E", "E", "E", "E", "E", "R"],
-        ["E", "E", "E", "E", "E", "R", "Y"],
-        ["E", "E", "E", "E", "E", "R", "R"],
-        ["E", "E", "E", "E", "E", "R", "Y"],
-        ["E", "E", "E", "E", "E", "Y", "R"],
-        ["E", "E", "E", "E", "E", "Y", "Y"]
-      ]} />
+      {state === GameStates.LOBBY && <LobbyScreen />}
+      {state === GameStates.PLAY && <PlayScreen />}
+      {state === GameStates.VICTORY && <VictoryScreen />}
+      {state === GameStates.DRAW && <DrawScreen />}
+      <Grid winingPositions={context.winingPositions} grid={context.grid} onDrop={dropToken} color={player?.color} />
     </div>
   )
 }

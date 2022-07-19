@@ -125,7 +125,15 @@ input:disabled {
   width: 80%;
   aspect-ratio: 1 / 1;
   height: auto;
+}
+
+.grid .disc-yellow,
+.grid .disc-red {
   animation: Drop calc(.25s * var(--row)) both;
+}
+
+.disc-active {
+  border: 8px solid green;
 }
 
 @keyframes Drop {
