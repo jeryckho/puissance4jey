@@ -5,12 +5,13 @@ import { Grid } from "./component/Grid";
 import { useGame } from "./hooks/useGame"
 import { DrawScreen } from "./screen/DrawScreen";
 import { LobbyScreen } from "./screen/LobbyScreen"
+import { LoginScreen } from "./screen/LoginScreen";
 import { PlayScreen } from "./screen/PlayScreen";
 import { VictoryScreen } from "./screen/VictoryScreen";
 
 function App() {
 
-  const { state, context, send } = useGame();
+  const { state, context, send, playerId } = useGame();
   const canDrop = state === GameStates.PLAY;
   const player = canDrop
     ? currentPlayer(context)
@@ -21,11 +22,14 @@ function App() {
 
   return (
     <div className="container">
+      {!playerId ? <LoginScreen /> : <>
+        Player: {playerId}
       {state === GameStates.LOBBY && <LobbyScreen />}
       {state === GameStates.PLAY && <PlayScreen />}
       {state === GameStates.VICTORY && <VictoryScreen />}
       {state === GameStates.DRAW && <DrawScreen />}
       <Grid winingPositions={context.winingPositions} grid={context.grid} onDrop={dropToken} color={player?.color} />
+      </>}
     </div>
   )
 }

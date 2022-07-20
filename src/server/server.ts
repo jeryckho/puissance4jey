@@ -10,10 +10,10 @@ fastify.register(fastifyStatic, {
 });
 
 fastify.post('/api/players', (req, res) => {
-    const playerId = v4();
-    const signature = sign(playerId);
+    const id = v4();
+    const signature = sign(id);
     res.send({
-        playerId,
+        id,
         signature
     });
 });

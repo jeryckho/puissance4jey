@@ -10,11 +10,6 @@ export function LobbyScreen({ }: LobbyScreenProps) {
     const { send, can, context } = useGame();
     const colors = [PlayerColor.YELLOW, PlayerColor.RED];
 
-    const joinGame = (name: Player['name']) => send({
-        type: 'join',
-        name: name,
-        playerId: name
-    });
     const chooseColor = (color: PlayerColor) => send({
         type: 'chooseColor',
         color,
@@ -29,7 +24,6 @@ export function LobbyScreen({ }: LobbyScreenProps) {
     });
 
     return <div>
-        <NameSelector onSelect={joinGame} />
         <ColorSelector players={context.players} colors={colors} onSelect={chooseColor} />
         <p>
             <button className="button" onClick={prevent(startGame)} disabled={!canStart}>Démarrer</button>

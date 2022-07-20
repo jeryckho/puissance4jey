@@ -22,6 +22,11 @@ export type Player = {
     name: string,
     color?: PlayerColor
 }
+export type PlayerSession = {
+    id: string,
+    name: string,
+    signature: string
+}
 
 export type CellEmpty = "E";
 export type CellState = "R" | "Y" | PlayerColor.RED | PlayerColor.YELLOW | CellEmpty;
