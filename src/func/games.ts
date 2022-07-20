@@ -20,9 +20,9 @@ export function winingPositions(grid: GridState, color: PlayerColor, x: number, 
         y: freePositionY(grid, x),
         x: x
     };
-    for (let forward of [1, -1]) {
-        for (let direction of directions) {
-            let items = [initialPosition];
+    for (let direction of directions) {
+        let items = [initialPosition];
+        for (let forward of [1, -1]) {
             for (let i = 1; i < size; i++) {
                 const x = initialPosition.x + (i * direction[0] * forward);
                 const y = initialPosition.y + (i * direction[1] * forward);
