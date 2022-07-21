@@ -1,13 +1,12 @@
 import { beforeEach, describe, it, expect } from 'vitest';
-import { interpret, InterpreterFrom } from 'xstate';
+import { interpret } from 'xstate';
 import { GameMachine, GameModel, makeGame } from '../../src/machine/GameMachine'
-import { canDropTokenGuard } from '../../src/machine/guard';
-import { GameStates, PlayerColor } from '../../src/types';
+import { GameStates, Machine, PlayerColor } from '../../src/types';
 
 describe("machine/GameMachine", () => {
     describe('join', () => {
 
-        let machine: InterpreterFrom<typeof GameMachine>;
+        let machine: Machine;
         beforeEach(() => {
             machine = interpret(GameMachine).start();
         });
@@ -27,7 +26,7 @@ describe("machine/GameMachine", () => {
     });
 
     describe('dropToken', () => {
-        let machine: InterpreterFrom<typeof GameMachine>;
+        let machine: Machine;
         beforeEach(() => {
             machine = makeGame(GameStates.PLAY, {
                 players: [

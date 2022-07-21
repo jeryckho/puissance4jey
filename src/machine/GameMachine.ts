@@ -1,6 +1,6 @@
-import { interpret, InterpreterFrom } from "xstate";
+import { interpret } from "xstate";
 import { createModel } from "xstate/lib/model"
-import { GameStates, GameContext, GridState, Player, PlayerColor, Position } from "../types";
+import { GameStates, GameContext, GridState, Player, PlayerColor, Position, Machine } from "../types";
 import { chooseColorAction, dropTokenAction, joinGameAction, leaveGameAction, restartAction, saveWiningAction, setCurrentPlayerAction, switchPlayerAction } from "./actions";
 import { canChooseColorGuard, canDropTokenGuard, canJoinGuard, canLeaveGuard, canStartGuard, isDrawMoveGuard, isWiningMoveGuard } from "./guard";
 
@@ -100,7 +100,7 @@ export const GameMachine = GameModel.createMachine({
     }
 });
 
-export function makeGame(state: GameStates = GameStates.LOBBY, context: Partial<GameContext> = {}): InterpreterFrom<typeof GameMachine> {
+export function makeGame(state: GameStates = GameStates.LOBBY, context: Partial<GameContext> = {}): Machine {
     const machine = interpret(
         GameMachine.withContext({
             ...GameModel.initialContext,

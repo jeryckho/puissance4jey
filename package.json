@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@fastify/static": "^6.4.0",
+    "@fastify/websocket": "^6.0.1",
     "@xstate/react": "^3.0.0",
     "fastify": "^4.2.1",
     "react": "^18.2.0",
@@ -26,6 +27,7 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/uuid": "^8.3.4",
+    "@types/ws": "^8.5.3",
     "@vitejs/plugin-react": "^2.0.0",
     "nodemon": "^2.0.19",
     "tsx": "^3.8.0",
@@ -36,5 +38,9 @@
   "nodemonConfig": {
     "exec": "tsx",
     "ext": "ts,tsx"
+  },
+  "volta": {
+    "node": "16.14.2",
+    "npm": "8.5.0"
   }
 }

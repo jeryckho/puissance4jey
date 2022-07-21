@@ -1,5 +1,5 @@
-import { ContextFrom, EventFrom } from "xstate";
-import { GameModel } from "./machine/GameMachine";
+import { ContextFrom, EventFrom, InterpreterFrom } from "xstate";
+import { GameMachine, GameModel } from "./machine/GameMachine";
 
 export type Position = {
     x: number,
@@ -42,3 +42,9 @@ export type GameAction<T extends GameEvents['type']> = (
     context: GameContext,
     event: GameEvent<T>
 ) => Partial<GameContext>;
+
+export type Machine = InterpreterFrom<typeof GameMachine>;
+
+export enum ServerErrors {
+    AuthError
+}
