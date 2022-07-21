@@ -12,8 +12,7 @@ export function LobbyScreen({ }: LobbyScreenProps) {
 
     const chooseColor = (color: PlayerColor) => send({
         type: 'chooseColor',
-        color,
-        playerId: color === PlayerColor.YELLOW ? "Bob" : "Bill"
+        color
     })
     const startGame = () => send({
         type: 'start'

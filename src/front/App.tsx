@@ -12,15 +12,9 @@ import { PlayScreen } from "./screen/PlayScreen";
 import { VictoryScreen } from "./screen/VictoryScreen";
 
 function App() {
-
-  const { state, context, send, playerId } = useGame();
-  const canDrop = state === GameStates.PLAY;
-  const player = canDrop
-    ? currentPlayer(context)
-    : undefined;
-  const dropToken = canDrop
-    ? (x: number) => { send({ type: 'dropToken', x: x }) }
-    : undefined;
+  const { state, context, send, can, playerId } = useGame();
+  const showGrid = state !== GameStates.LOBBY;
+  const dropToken = (x: number) => { send({ type: 'dropToken', x: x }) };
 
   useEffect(() => {
     if (playerId) {
@@ -43,12 +37,11 @@ function App() {
   return (
     <div className="container">
       {!playerId ? <LoginScreen /> : <>
-        Player: {playerId}
         {state === GameStates.LOBBY && <LobbyScreen />}
         {state === GameStates.PLAY && <PlayScreen />}
         {state === GameStates.VICTORY && <VictoryScreen />}
         {state === GameStates.DRAW && <DrawScreen />}
-        <Grid winingPositions={context.winingPositions} grid={context.grid} onDrop={dropToken} color={player?.color} />
+        {showGrid && <Grid winingPositions={context!.winingPositions} grid={context!.grid} onDrop={dropToken} color={currentPlayer(context)?.color} canDrop={(x) => can({ type: 'dropToken', x })} />}
       </>}
     </div>
   )

@@ -13,6 +13,10 @@ export enum GameStates {
     DRAW = 'DRAW'
 }
 
+export enum QueryParams {
+    GAMEID = 'gameId'
+}
+
 export enum PlayerColor {
     RED = 'R',
     YELLOW = 'Y'
