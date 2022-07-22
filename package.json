@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "NODE_ENV=prod tsx src/server/server.ts",
-    "start:win": "set NODE_ENV=prod&& tsx src/server/server.ts",
+    "start": "tsx src/server/server.ts",
     "start:watch": "set NODE_ENV=dev&& nodemon src/server/server.ts",
     "gen:key": "tsx src/commands/genkey.ts",
     "dev": "vite",
@@ -23,6 +22,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "reconnecting-websocket": "^4.4.0",
+    "tsx": "^3.8.0",
+    "typescript": "^4.6.4",
     "uuid": "^8.3.2",
     "xstate": "^4.32.1"
   },
@@ -35,8 +36,6 @@
     "@types/ws": "^8.5.3",
     "@vitejs/plugin-react": "^2.0.0",
     "nodemon": "^2.0.19",
-    "tsx": "^3.8.0",
-    "typescript": "^4.6.4",
     "vite": "^3.0.0",
     "vitest": "^0.18.1"
   },

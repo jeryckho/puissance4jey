@@ -11,7 +11,7 @@ export const leaveGameAction: GameAction<'leave'> = (context, event) => ({
 })
 
 export const chooseColorAction: GameAction<'chooseColor'> = (context, event) => ({
-    players: context.players.map(p => (p.id === event.playerId) ? { ...p, color: event.color } : p)
+    players: context.players.map(p => (p.id === event.playerId) ? { ...p, color: (event.color === p.color) ? undefined : event.color } : p)
 })
 
 export const dropTokenAction: GameAction<'dropToken'> = ({ grid, players }, { x, playerId }) => {

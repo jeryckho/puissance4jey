@@ -12,7 +12,7 @@ export const canLeaveGuard: GameGuard<"leave"> = (context, event) => {
 export const canChooseColorGuard: GameGuard<"chooseColor"> = (context, event) => {
     return [PlayerColor.RED, PlayerColor.YELLOW].includes(event.color) &&
         context.players.find(p => p.id === event.playerId) !== undefined &&
-        context.players.find(p => p.color === event.color) === undefined;
+        context.players.find(p => (p.color === event.color) && (p.id !== event.playerId)) === undefined;
 }
 
 export const canStartGuard: GameGuard<"start"> = (context, event) => {
