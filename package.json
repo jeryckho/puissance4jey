@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "set NODE_ENV=prod&& tsx src/server/server.ts",
+    "start": "NODE_ENV=prod tsx src/server/server.ts",
+    "start:win": "set NODE_ENV=prod&& tsx src/server/server.ts",
     "start:watch": "set NODE_ENV=dev&& nodemon src/server/server.ts",
     "gen:key": "tsx src/commands/genkey.ts",
     "dev": "vite",
