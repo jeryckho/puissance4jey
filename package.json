@@ -9,7 +9,7 @@
     "start:watch": "set NODE_ENV=dev&& nodemon src/server/server.ts",
     "gen:key": "tsx src/commands/genkey.ts",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && npm run gen:key && vite build",
     "preview": "vite preview",
     "test": "vitest"
   },
