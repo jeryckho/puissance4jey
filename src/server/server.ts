@@ -1,6 +1,8 @@
 import Fastify from 'fastify';
 import fastifyStatic from '@fastify/static';
 import fastifyWebsocket from '@fastify/websocket';
+import fastifyView from '@fastify/view';
+import ejs from 'ejs';
 import { v4 } from 'uuid';
 import { sign, verify } from './func/crypto';
 import { resolve } from 'path';
@@ -9,11 +11,20 @@ import { ConnectionRepository } from './repositories/ConnectionRepository';
 import { GameRepository } from './repositories/GameRepository';
 import { GameModel } from '../machine/GameMachine';
 import { publishMachine } from './func/socket';
+import { readFileSync } from 'fs';
 
 const connections = new ConnectionRepository();
 const games = new GameRepository(connections);
+const env = process.env.NODE_ENV as 'dev' | 'prod';
+let manifest = {};
+try {
+    manifest = JSON.parse(readFileSync('./public/assets/manifest.json', { encoding: 'utf8' }));
+} catch (error) { }
 
 const fastify = Fastify({ logger: true });
+fastify.register(fastifyView, {
+    engine: { ejs }
+});
 fastify.register(fastifyStatic, {
     root: resolve("./public")
 });
@@ -59,6 +70,13 @@ fastify.register(async (f) => {
         });
     })
 })
+
+fastify.get('/', (req, res) => {
+    res.view("/templates/index.ejs", {
+        manifest,
+        env: process.env.NODE_ENV
+    });
+});
 
 fastify.post('/api/players', (req, res) => {
     const id = v4();
